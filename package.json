@@ -1,0 +1,11 @@
+{
+  "name": "repo-access-checker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static web app that checks what a GitHub token can access in a repository.",
+  "scripts": {
+    "start": "npx --yes serve -l 8080 .",
+    "test": "node --test test/*.test.js"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Repo Access Checker</title>
+  <meta name="description" content="Check what a GitHub token can access in a repository.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%232f81f7' d='M8 1a3 3 0 0 0-3 3v2H4a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-1V4a3 3 0 0 0-3-3Zm-1.5 5V4a1.5 1.5 0 1 1 3 0v2h-3Z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <header class="masthead">
+      <h1>Repo Access Checker</h1>
+      <p class="lede">Paste a GitHub repository link and a token to see whether the token can reach the repo, what role it has, and which parts of the repo it can read.</p>
+    </header>
+
+    <form id="check-form" class="card" novalidate autocomplete="off">
+      <div class="field">
+        <label for="repo">Repository</label>
+        <input id="repo" name="repo" type="text" inputmode="url" spellcheck="false"
+               placeholder="https://github.com/owner/repo" required>
+        <p class="hint">Accepts URLs, <code>owner/repo</code>, or SSH remotes like <code>git@github.com:owner/repo.git</code>.</p>
+      </div>
+
+      <div class="field">
+        <label for="token">Token <span class="optional">(optional for public repos)</span></label>
+        <div class="input-group">
+          <input id="token" name="token" type="password" spellcheck="false" autocomplete="off"
+                 placeholder="ghp_… or github_pat_…">
+          <button type="button" id="toggle-token" class="ghost" aria-pressed="false" aria-controls="token">Show</button>
+        </div>
+        <p class="hint">Your token is sent only to the GitHub API, straight from your browser. It is never stored or sent anywhere else.</p>
+      </div>
+
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+
+      <button type="submit" id="submit" class="primary">
+        <span class="label">Check access</span>
+        <span class="spinner" aria-hidden="true"></span>
+      </button>
+    </form>
+
+    <section id="results" aria-live="polite" hidden></section>
+
+    <footer class="footer">
+      <p>Only read-only <code>GET</code> requests are made. Nothing in the repository is changed.</p>
+    </footer>
+  </main>
+
+  <script src="src/github.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
